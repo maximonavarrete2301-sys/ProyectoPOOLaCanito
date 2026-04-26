@@ -6,31 +6,30 @@ public class Bus {
     private int nroAsientos;
     private ArrayList<Viaje> viajes;
 
-    public Bus (String patente, String marca, String modelo, int nroAsientos) {
+    public Bus(String patente, int nroAsientos) {
         this.patente=patente;
-        this.marca=marca;
-        this.modelo=modelo;
         this.nroAsientos=nroAsientos;
         this.viajes= new ArrayList<>();
     }
-    public String getPatente(){
+    public String getPatente() {
         return patente;
     }
-    public String getMarca(){
+    public String getMarca() {
         return marca;
     }
-    public void setMarca(String marca){
-        this.marca=marca;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
-    public String getModelo(){
+    public String getModelo() {
         return modelo;
     }
-    public void setModelo (String modelo) {
-        this.modelo=modelo;
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
-    public int getNroAsientos(){
+    public int getNroAsientos() {
         return nroAsientos;
     }
+
     public void addViaje(Viaje viaje) {
         if (viaje != null) {
             viajes.add(viaje);

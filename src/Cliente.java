@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 public class Cliente extends Persona {
     private String email;
     private ArrayList<Venta> ventas;
@@ -27,5 +28,3 @@ public class Cliente extends Persona {
         return ventas.toArray(new Venta[0]);
     }
 }
-
-

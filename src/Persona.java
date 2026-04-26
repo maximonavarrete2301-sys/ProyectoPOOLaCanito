@@ -1,15 +1,17 @@
-public class Persona implements IdPersona {
+public class Persona {
     private IdPersona idPersona;
     private Nombre nombreCompleto;
     private String telefono;
 
     public Persona(IdPersona idPersona, Nombre nombreCompleto) {
-        this.idPersona = idPersona;
-        this.nombreCompleto = nombreCompleto;
+        this.idPersona=idPersona;
+        this.nombreCompleto=nombreCompleto;
     }
+
     public IdPersona getIdPersona() {
         return idPersona;
     }
+
     public Nombre getNombreCompleto() {
         return nombreCompleto;
     }
@@ -25,8 +27,9 @@ public class Persona implements IdPersona {
 
     @Override
     public String toString() {
-        return idPersona.toString() + "," + nombreCompleto.toString() + "," + telefono;
+        return idPersona.toString() + " , " + nombreCompleto.toString() + " , " + telefono;
     }
+
     @Override
     public boolean equals(Object otro) {
         if (otro instanceof Persona) {
