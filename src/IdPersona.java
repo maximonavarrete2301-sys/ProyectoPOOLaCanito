@@ -1,3 +1,4 @@
+//Rodrigo Henriquez
 public interface IdPersona {
     @Override
     String toString();
