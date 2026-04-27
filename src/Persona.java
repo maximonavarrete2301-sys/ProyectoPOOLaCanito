@@ -1,3 +1,4 @@
+//MAXIMO NAVARRETE FERNANDEZ
 public class Persona {
     private IdPersona idPersona;
     private Nombre nombreCompleto;
