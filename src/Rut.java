@@ -1,3 +1,4 @@
+//Rodrigo Henriquez
 public class Rut implements IdPersona {
     private int numero;
     private char dv;
