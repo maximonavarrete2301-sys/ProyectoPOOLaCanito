@@ -1,4 +1,7 @@
-//Rodrigo Henriquez
+package vista;//Rodrigo Henriquez
+import controlador.SistemaVentaPasajes;
+import utilidades.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -6,7 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     private static Scanner sc = new Scanner(System.in);
-    private static SistemaVentaPasajes sistema = new SistemaVentaPasajes();
+    private static SistemaVentaPasajes sistema = new controlador.SistemaVentaPasajes();
     private static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
@@ -108,7 +111,7 @@ public class Main {
         System.out.print("ID Documento: ");
         String idDoc = sc.nextLine();
         System.out.print("Tipo documento: [1] Boleta [2] Factura: ");
-        TipoDocumento tipo = (sc.nextInt() == 1) ? TipoDocumento.BOLETA : TipoDocumento.FACTURA;
+        modelo.TipoDocumento tipo = (sc.nextInt() == 1) ? modelo.TipoDocumento.BOLETA : modelo.TipoDocumento.FACTURA;
         sc.nextLine();
         System.out.print("Fecha de venta [dd/mm/yyyy]: ");
         LocalDate fechaVenta = LocalDate.parse(sc.nextLine(), dateFormatter);

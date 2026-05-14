@@ -1,4 +1,6 @@
-//Rodrigo Henriquez
+package utilidades;//Rodrigo Henriquez
+import modelo.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 

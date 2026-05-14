@@ -1,3 +1,5 @@
+package utilidades;
+
 //Rodrigo Henriquez
 public interface IdPersona {
     @Override
