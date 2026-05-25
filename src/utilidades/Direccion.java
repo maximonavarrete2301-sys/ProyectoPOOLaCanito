@@ -1,6 +1,6 @@
 package utilidades;
 
-//Victor Diaz, Maximo Navarrete y Rodrigo Henriquez
+//Victor Diaz
 
 public class Direccion {
 
