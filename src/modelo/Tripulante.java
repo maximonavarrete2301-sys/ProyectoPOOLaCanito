@@ -1,15 +1,18 @@
 package modelo;
 
-//Rodrigo Henriquez
+import utilidades.Direccion;
 import utilidades.IdPersona;
 import utilidades.Nombre;
 
-public abstract class Tripulante extends Persona{
+public abstract class Tripulante extends Persona {
+
     private Direccion direccion;
 
-    public Tripulante(IdPersona id, Nombre nom, Direccion dir){
-        super(id,nom);
-        this.direccion = dir;
+    public Tripulante(IdPersona id, Nombre nom, Direccion dir) {
+
+        super(id, nom);
+
+        direccion = dir;
     }
 
     public Direccion getDireccion() {

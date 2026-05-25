@@ -1,25 +1,27 @@
 package modelo;
 
-//Rodrigo Henriquez
+import utilidades.Direccion;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Auxiliar extends Tripulante {
 
-    private List<Viaje> viajes;
+    private ArrayList<Viaje> viajes;
 
     public Auxiliar(utilidades.IdPersona id, utilidades.Nombre nom, Direccion dir) {
         super(id, nom, dir);
-        this.viajes = new ArrayList<>();
+
+        viajes = new ArrayList<>();
     }
 
     @Override
     public void addViaje(Viaje viaje) {
-        this.viajes.add(viaje);
+        viajes.add(viaje);
     }
 
     @Override
     public int getNroViajes() {
-        return this.viajes.size();
+        int cantidad = viajes.size();
+
+        return cantidad;
     }
 }

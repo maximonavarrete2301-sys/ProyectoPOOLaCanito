@@ -1,25 +1,28 @@
 package modelo;
 
-//Rodrigo Henriquez
 import java.util.ArrayList;
-import java.util.List;
+import utilidades.Direccion;
 
 public class Conductor extends Tripulante {
 
-    private List<Viaje> viajes;
+    private ArrayList<Viaje> viajes;
 
     public Conductor(utilidades.IdPersona id, utilidades.Nombre nom, Direccion dir) {
         super(id, nom, dir);
-        this.viajes = new ArrayList<>();
+
+        viajes = new ArrayList<>();
     }
 
     @Override
     public void addViaje(Viaje viaje) {
-        this.viajes.add(viaje);
+        viajes.add(viaje);
     }
 
     @Override
     public int getNroViajes() {
-        return this.viajes.size();
+
+        int total = viajes.size();
+
+        return total;
     }
 }

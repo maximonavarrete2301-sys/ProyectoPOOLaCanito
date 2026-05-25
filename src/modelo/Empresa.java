@@ -1,27 +1,31 @@
-package modelo;//Rodrigo Henriquez
+package modelo;
+
 import java.util.ArrayList;
+import utilidades.Rut;
+import utilidades.IdPersona;
+import utilidades.Nombre;
+import utilidades.Direccion;
+import utilidades.Venta;
 
 public class Empresa {
 
-    private utilidades.Rut rut;
+    private Rut rut;
     private String nombre;
     private String url;
 
-    private ArrayList<modelo.Bus> buses;
-    private ArrayList<modelo.Conductor> conductores;
-    private ArrayList<modelo.Auxiliar> auxiliares;
+    private ArrayList<Bus> buses;
+    private ArrayList<Tripulante> tripulantes;
 
-    public Empresa(utilidades.Rut rut, String nombre) {
+    public Empresa(Rut rut, String nombre, String url) {
         this.rut = rut;
         this.nombre = nombre;
-        this.url = "";
+        this.url = url;
 
-        this.buses = new ArrayList<>();
-        this.conductores = new ArrayList<>();
-        this.auxiliares = new ArrayList<>();
+        buses = new ArrayList<>();
+        tripulantes = new ArrayList<>();
     }
 
-    public utilidades.Rut getRut() {
+    public Rut getRut() {
         return rut;
     }
 
@@ -37,98 +41,91 @@ public class Empresa {
         this.url = url;
     }
 
-    public void addBus(modelo.Bus bus) {
-        if (bus != null) {
-            buses.add(bus);
-        }
+    public void addBus(Bus bus) {
+        buses.add(bus);
     }
 
-    public modelo.Bus[] getBuses() {
-        return buses.toArray(new modelo.Bus[0]);
+    public Bus[] getBuses() {
+        Bus[] lista = new Bus[buses.size()];
+
+        for (int i = 0; i < buses.size(); i++) {
+            lista[i] = buses.get(i);
+        }
+
+        return lista;
     }
 
-    public boolean addConductor(utilidades.IdPersona id, utilidades.Nombre nom, utilidades.Direccion dir) {
-
-        for (modelo.Conductor c : conductores) {
-            if (c.getIdPersona().equals(id)) {
-                return false;
-            }
-        }
-
-        for (modelo.Auxiliar a : auxiliares) {
-            if (a.getIdPersona().equals(id)) {
-                return false;
-            }
-        }
-
-        modelo.Conductor conductor = new modelo.Conductor(id, nom, dir);
-        conductores.add(conductor);
-
-        return true;
+    public void addConductor(IdPersona id, Nombre nom, Direccion dir) {
+        Conductor conductor = new Conductor(id, nom, dir);
+        tripulantes.add(conductor);
     }
 
-    public boolean addAuxiliar(utilidades.IdPersona id, utilidades.Nombre nom, utilidades.Direccion dir) {
-
-        // Verifica que no exista un tripulante con el mismo id
-        for (modelo.Conductor c : conductores) {
-            if (c.getIdPersona().equals(id)) {
-                return false;
-            }
-        }
-
-        for (modelo.Auxiliar a : auxiliares) {
-            if (a.getIdPersona().equals(id)) {
-                return false;
-            }
-        }
-
-        modelo.Auxiliar auxiliar = new modelo.Auxiliar(id, nom, dir);
-        auxiliares.add(auxiliar);
-
-        return true;
+    public void addAuxiliar(IdPersona id, Nombre nom, Direccion dir) {
+        Auxiliar auxiliar = new Auxiliar(id, nom, dir);
+        tripulantes.add(auxiliar);
     }
 
-    public modelo.Tripulante[] getTripulantes() {
+    public Conductor findConductor(IdPersona id) {
 
-        modelo.Tripulante[] tripulantes =
-                new modelo.Tripulante[conductores.size() + auxiliares.size()];
+        for (Tripulante t : tripulantes) {
 
-        int i = 0;
+            if (t instanceof Conductor) {
 
-        for (modelo.Auxiliar a : auxiliares) {
-            tripulantes[i] = a;
-            i++;
-        }
-
-        for (modelo.Conductor c : conductores) {
-            tripulantes[i] = c;
-            i++;
-        }
-
-        return tripulantes;
-    }
-
-    public utilidades.Venta[] getVentas() {
-
-        ArrayList<utilidades.Venta> ventas = new ArrayList<>();
-
-        for (modelo.Bus bus : buses) {
-
-            modelo.Viaje[] viajes = bus.getViajes();
-
-            for (modelo.Viaje viaje : viajes) {
-
-                utilidades.Venta[] ventasViaje = viaje.getVentas();
-
-                for (utilidades.Venta venta : ventasViaje) {
-
-                    if (!ventas.contains(venta)) {
-                        ventas.add(venta);
-                    }
+                if (t.getIdPersona().equals(id)) {
+                    return (Conductor) t;
                 }
             }
         }
 
-        return ventas.toArray(new utilidades.Venta[0]);
+        return null;
+    }
+
+    public Auxiliar findAuxiliar(IdPersona id) {
+
+        for (Tripulante t : tripulantes) {
+
+            if (t instanceof Auxiliar) {
+
+                if (t.getIdPersona().equals(id)) {
+                    return (Auxiliar) t;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public Tripulante[] getTripulantes() {
+
+        Tripulante[] lista = new Tripulante[tripulantes.size()];
+
+        for (int i = 0; i < tripulantes.size(); i++) {
+            lista[i] = tripulantes.get(i);
+        }
+
+        return lista;
+    }
+
+    public Venta[] getVentas() {
+
+        ArrayList<Venta> ventasLista = new ArrayList<>();
+
+        for (Bus bus : buses) {
+
+            for (Viaje viaje : bus.getViajes()) {
+
+                for (Venta venta : viaje.getVentas()) {
+                    ventasLista.add(venta);
+                }
+            }
+        }
+
+        Venta[] lista = new Venta[ventasLista.size()];
+
+        for (int i = 0; i < ventasLista.size(); i++) {
+            lista[i] = ventasLista.get(i);
+        }
+
+        return lista;
     }
 }
