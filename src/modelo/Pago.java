@@ -1,3 +1,5 @@
+package modelo;
+
 public abstract class Pago {
 
     private  int monto;
