@@ -1,4 +1,5 @@
 //MAXIMO NAVARRETE FERNANDEZ
+package modelo;
 import java.util.ArrayList;
 
 public class Cliente extends Persona {
