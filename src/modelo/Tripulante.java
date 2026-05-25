@@ -1,5 +1,7 @@
 package modelo;
 
+//Rodrigo Henriquez
+
 import utilidades.Direccion;
 import utilidades.IdPersona;
 import utilidades.Nombre;
