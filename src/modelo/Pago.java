@@ -1,5 +1,7 @@
 package modelo;
 
+//Victor Diaz
+
 public abstract class Pago {
 
     private  int monto;
