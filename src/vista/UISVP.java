@@ -293,7 +293,6 @@ public class UISVP {
             System.out.println("Monto total de la venta: $" + monto.get());
             System.out.println("=================================");
 
-            // SECCION INTEGRADA: PAGO DE LA VENTA
             System.out.println("\n--- PROCESAR PAGO DE LA VENTA ---");
             System.out.println("1. Efectivo");
             System.out.println("2. Tarjeta");
