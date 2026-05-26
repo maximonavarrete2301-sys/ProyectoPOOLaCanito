@@ -1,6 +1,6 @@
 //Victor Diaz 
 
-package utilidades;
+
 public class Nombre {
     private Tratamiento tratamiento;
     private String nombres;

@@ -1,5 +1,5 @@
 //Victor Diaz
-package utilidades;
+
 public enum Tratamiento {
 
     SR,SRA;

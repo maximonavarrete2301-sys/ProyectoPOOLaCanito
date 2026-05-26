@@ -1,9 +1,5 @@
 //MAXIMO NAVARRETE FERNANDEZ
 package modelo;
-import utilidades.IdPersona;
-import utilidades.Nombre;
-import utilidades.Venta;
-
 import java.util.ArrayList;
 
 public class Cliente extends Persona {

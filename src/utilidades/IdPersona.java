@@ -1,5 +1,6 @@
-//Rodrigo Henriquez
 package utilidades;
+
+//Rodrigo Henriquez
 public interface IdPersona {
     @Override
     String toString();

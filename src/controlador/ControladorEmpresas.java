@@ -56,10 +56,7 @@ public class ControladorEmpresas {
             throw new SistemaVentaPasajesException("Ya existe bus con la patente indicada");
         }
 
-        Bus nuevo = new Bus(patente, nroAsientos, empresaOpt.get());
-        nuevo.setMarca(marca);
-        nuevo.setModelo(modelo);
-
+        Bus nuevo = new Bus(patente, marca, modelo, nroAsientos, empresaOpt.get());
         buses.add(nuevo);
     }
 
@@ -81,25 +78,33 @@ public class ControladorEmpresas {
     }
 
     public void hireConductorForEmpresa(Rut rutEmpresa, IdPersona id, Nombre nom, Direccion dir) {
-
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
-
         if (empresaOpt.isEmpty()) {
             throw new SistemaVentaPasajesException("No existe empresa con el rut indicado");
         }
 
-        empresaOpt.get().addConductor(id, nom, dir);
+        boolean ok = empresaOpt.get().addConductor(id, nom, dir);
+
+        if (!ok) {
+
+            throw new SistemaVentaPasajesException("Ya esta contratado conductor/auxiliar con el id dado en la empresa señalada");
+        }
     }
 
     public void hireAuxiliarForEmpresa(Rut rutEmpresa, IdPersona id, Nombre nom, Direccion dir) {
-
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
 
         if (empresaOpt.isEmpty()) {
+
             throw new SistemaVentaPasajesException("No existe empresa con el rut indicado");
         }
 
-        empresaOpt.get().addAuxiliar(id, nom, dir);
+        boolean ok = empresaOpt.get().addAuxiliar(id, nom, dir);
+
+        if (!ok) {
+
+            throw new SistemaVentaPasajesException("Ya esta contratado auxiliar/conductor con el id dado en la empresa señalada");
+        }
     }
 
     public String[][] listEmpresas() {
@@ -160,7 +165,6 @@ public class ControladorEmpresas {
         }
         return matriz;
     }
-
     public String[][] listVentasEmpresa(Rut rut) {
         Optional<Empresa> empresaOpt = findEmpresa(rut);
         if (empresaOpt.isEmpty()) {
@@ -212,7 +216,6 @@ public class ControladorEmpresas {
         }
         return Optional.empty();
     }
-
     Optional<Bus> findBus(String patente) {
         for (Bus b : buses) {
             if (b.getPatente().equals(patente)) {
@@ -223,27 +226,23 @@ public class ControladorEmpresas {
         return Optional.empty();
     }
 
-    Conductor findConductor(IdPersona id, Rut rutEmpresa) {
-
+    Optional<Conductor> findConductor(IdPersona id, Rut rutEmpresa) {
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
 
         if (empresaOpt.isPresent()) {
             return empresaOpt.get().findConductor(id);
         }
 
-        return null;
+        return Optional.empty();
     }
 
-    Auxiliar findAuxiliar(IdPersona id, Rut rutEmpresa) {
-
+    Optional<Auxiliar> findAuxiliar(IdPersona id, Rut rutEmpresa) {
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
-
         if (empresaOpt.isPresent()) {
+
             return empresaOpt.get().findAuxiliar(id);
         }
 
-        return null;
+        return Optional.empty();
     }
 }
-
-

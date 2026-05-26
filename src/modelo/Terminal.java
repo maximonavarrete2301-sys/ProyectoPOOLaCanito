@@ -1,8 +1,6 @@
 //Maximo Navarrete Fernandez
 package modelo;
 
-import utilidades.Direccion;
-
 import java.util.ArrayList;
 
 public class Terminal {

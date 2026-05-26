@@ -1,8 +1,6 @@
 //Victor Diaz 
 
-package modelo;
 
-import utilidades.Venta;
 
 import java.util.Random;
 
