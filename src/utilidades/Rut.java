@@ -1,3 +1,5 @@
+package utilidades;
+
 //Rodrigo Henriquez
 public class Rut implements IdPersona {
     private int numero;
