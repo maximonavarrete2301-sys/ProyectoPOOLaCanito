@@ -8,13 +8,14 @@ import modelo.*;
 import utilidades.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Scanner;
 import excepciones.*;
 
 public class UISVP {
 
-    private static UISVP instancia;
+    private static UISVP instance;
 
     private Scanner sc;
 
@@ -26,21 +27,38 @@ public class UISVP {
 
     private UISVP() {
         sc = new Scanner(System.in);
-        sistema = SistemaVentaPasajes.getInstancia();
-        controlador = ControladorEmpresas.getInstancia();
+        sistema = SistemaVentaPasajes.getInstance();
+        controlador = ControladorEmpresas.getInstance();
     }
 
-    public static UISVP getInstancia() {
-        if (instancia == null) {
-            instancia = new UISVP();
+    public static UISVP getInstance() {
+        if (instance == null) {
+            instance = new UISVP();
         }
-        return instancia;
+        return instance;
     }
 
-    public void iniciar() {
+    public void menu() {
         int op;
         do {
-            menu();
+            System.out.println("\n===== SISTEMA VENTA PASAJES =====");
+            System.out.println("1. Crear empresa");
+            System.out.println("2. Contratar tripulante");
+            System.out.println("3. Crear terminal");
+            System.out.println("4. Crear cliente");
+            System.out.println("5. Crear bus");
+            System.out.println("6. Crear viaje");
+            System.out.println("7. Vender pasajes");
+            System.out.println("8. Listar ventas");
+            System.out.println("9. Listar viajes");
+            System.out.println("10. Listar pasajeros viaje");
+            System.out.println("11. Listar empresas");
+            System.out.println("12. Listar llegadas/salidas terminal");
+            System.out.println("13. Listar ventas empresa");
+            System.out.println("14. Consulta viajes disponibles por fecha");
+            System.out.println("15. Salir");
+            System.out.print("Opcion: ");
+
             op = Integer.parseInt(sc.nextLine());
 
             switch (op) {
@@ -58,39 +76,19 @@ public class UISVP {
                 case 12: listLlegadasSalidasTerminal(); break;
                 case 13: listVentasEmpresa(); break;
                 case 14: consultaViajesFecha(); break;
-                case 0: System.out.println("Fin sistema"); break;
-                default: System.out.println("Opcion invalida");
+                case 15: System.out.println("Fin del programa"); break;
+                default: System.out.println("error opcion no valida");
             }
-        } while (op != 0);
-    }
-
-    private void menu() {
-        System.out.println("\n===== SISTEMA VENTA PASAJES =====");
-        System.out.println("1. Crear empresa");
-        System.out.println("2. Contratar tripulante");
-        System.out.println("3. Crear terminal");
-        System.out.println("4. Crear cliente");
-        System.out.println("5. Crear bus");
-        System.out.println("6. Crear viaje");
-        System.out.println("7. Vender pasajes");
-        System.out.println("8. Listar ventas");
-        System.out.println("9. Listar viajes");
-        System.out.println("10. Listar pasajeros viaje");
-        System.out.println("11. Listar empresas");
-        System.out.println("12. Listar llegadas/salidas terminal");
-        System.out.println("13. Listar ventas empresa");
-        System.out.println("14. Consulta viajes fecha");
-        System.out.println("0. Salir");
-        System.out.print("Opcion: ");
+        } while (op != 15);
     }
 
     private void createEmpresa() {
         try {
-            System.out.print("Rut empresa: ");
+            System.out.print("R.u.t: ");
             String rut = sc.nextLine();
-            System.out.print("Nombre empresa: ");
+            System.out.print("Nombre: ");
             String nombre = sc.nextLine();
-            System.out.print("URL empresa: ");
+            System.out.print("URL: ");
             String url = sc.nextLine();
 
             controlador.createEmpresa(Rut.of(rut), nombre, url);
@@ -117,11 +115,12 @@ public class UISVP {
 
             if (tipo == 1) {
                 controlador.hireConductorForEmpresa(Rut.of(rut), id, nombre, dir);
+                System.out.println("Conductor contratado exitosamente");
             } else {
                 controlador.hireAuxiliarForEmpresa(Rut.of(rut), id, nombre, dir);
             }
 
-            System.out.println("Tripulante contratado");
+            System.out.println("Tripulante contratado exitosamente");
 
         } catch (SistemaVentaPasajesException e) {
             System.out.println(e.getMessage());
@@ -130,7 +129,7 @@ public class UISVP {
 
     private void createTerminal() {
         try {
-            System.out.print("Nombre terminal: ");
+            System.out.print("Nombre: ");
             String nombre = sc.nextLine();
 
             System.out.println("--- Direccion del Terminal ---");
@@ -186,8 +185,9 @@ public class UISVP {
 
     private void createViaje() {
         try {
-            System.out.print("Fecha [yyyy-mm-dd]: ");
-            LocalDate fecha = LocalDate.parse(sc.nextLine());
+            System.out.print("Fecha [dd/mm/yyyy]: ");
+            DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fecha = LocalDate.parse(sc.nextLine(), formatoFecha);
             System.out.print("Hora [hh:mm]: ");
             LocalTime hora = LocalTime.parse(sc.nextLine());
             System.out.print("Precio: ");
@@ -196,13 +196,12 @@ public class UISVP {
             int duracion = Integer.parseInt(sc.nextLine());
             System.out.print("Patente bus: ");
             String patente = sc.nextLine();
-
-            System.out.print("Cantidad tripulantes (Auxiliar + Conductores): ");
+            System.out.print("Cantidad tripulantes : ");
             int cant = Integer.parseInt(sc.nextLine());
 
             IdPersona[] trip = new IdPersona[cant];
             for (int i = 0; i < cant; i++) {
-                System.out.println("Tripulante " + (i + 1) + " (El 1 debe ser Auxiliar):");
+                System.out.println("Tripulante " + (i + 1));
                 trip[i] = leerIdPersona();
             }
 
@@ -228,8 +227,13 @@ public class UISVP {
             System.out.print("Tipo documento [1] Boleta [2] Factura: ");
             tipoVentaActual = (Integer.parseInt(sc.nextLine()) == 1) ? TipoDocumento.BOLETA : TipoDocumento.FACTURA;
 
-            System.out.print("Fecha viaje [yyyy-mm-dd]: ");
-            LocalDate fecha = LocalDate.parse(sc.nextLine());
+            System.out.print("Fecha viaje [dd/mm/yyyy]: ");
+
+            String fechaTexto = sc.nextLine();
+
+            String[] partesFecha = fechaTexto.split("/");
+
+            LocalDate fecha = LocalDate.of(Integer.parseInt(partesFecha[2]), Integer.parseInt(partesFecha[1]), Integer.parseInt(partesFecha[0]));
             System.out.print("Comuna salida: ");
             String salida = sc.nextLine();
             System.out.print("Comuna llegada: ");
@@ -253,12 +257,15 @@ public class UISVP {
             System.out.print("Hora viaje elegida [hh:mm]: ");
             LocalTime hora = LocalTime.parse(sc.nextLine());
 
-            String[][] asientosStr = sistema.listAsientosDeViaje(fecha, hora, patBus);
+            String[] asientosStr = sistema.listAsientosDeViaje(fecha, hora, patBus);
             System.out.println("\n--- MAPA DE ASIENTOS ---");
             for (int i = 0; i < asientosStr.length; i++) {
-                String estado = asientosStr[i][1].equals("Libre") ? asientosStr[i][0] : "*";
-                System.out.printf("[%2s] ", estado);
-                if ((i + 1) % 4 == 0) System.out.println();
+
+                System.out.printf("[%2s] ", asientosStr[i]);
+
+                if ((i + 1) % 4 == 0) {
+                    System.out.println();
+                }
             }
             System.out.println();
 
@@ -293,7 +300,6 @@ public class UISVP {
             System.out.println("Monto total de la venta: $" + monto.get());
             System.out.println("=================================");
 
-            // SECCION INTEGRADA: PAGO DE LA VENTA
             System.out.println("\n--- PROCESAR PAGO DE LA VENTA ---");
             System.out.println("1. Efectivo");
             System.out.println("2. Tarjeta");
@@ -340,8 +346,13 @@ public class UISVP {
 
     private void listPasajerosViaje() {
         try {
-            System.out.print("Fecha [yyyy-mm-dd]: ");
-            LocalDate fecha = LocalDate.parse(sc.nextLine());
+            System.out.print("Fecha [dd/mm/yyyy]: ");
+
+            String fechaTexto = sc.nextLine();
+
+            String[] partesFecha = fechaTexto.split("/");
+
+            LocalDate fecha = LocalDate.of(Integer.parseInt(partesFecha[2]), Integer.parseInt(partesFecha[1]), Integer.parseInt(partesFecha[0]));
             System.out.print("Hora [hh:mm]: ");
             LocalTime hora = LocalTime.parse(sc.nextLine());
             System.out.print("Patente bus: ");
@@ -362,8 +373,7 @@ public class UISVP {
 
     private void listEmpresas() {
         String[][] datos = controlador.listEmpresas();
-        System.out.println("\n--- EMPRESAS ---");
-        System.out.printf("%-12s | %-20s | %-25s | %-10s | %-10s\n", "RUT", "NOMBRE", "URL", "TRIPULANTES", "BUSES");
+        System.out.printf("%-12s | %-20s | %-25s | %-10s | %-10s\n", "RUT EMPRESA", "NOMBRE", "URL", "NRO. TRIPULANTES", "NRO. BUSES");
         System.out.println("--------------------------------------------------------------------------------------");
         for (int i = 0; i < datos.length; i++) {
             System.out.printf("%-12s | %-20s | %-25s | %-10s | %-10s\n", datos[i][0], datos[i][1], datos[i][2], datos[i][3], datos[i][4]);
@@ -374,12 +384,14 @@ public class UISVP {
         try {
             System.out.print("Nombre terminal: ");
             String nombre = sc.nextLine();
-            System.out.print("Fecha [yyyy-mm-dd]: ");
-            LocalDate fecha = LocalDate.parse(sc.nextLine());
+            System.out.print("Fecha [dd/mm/yyyy]: ");
 
+            String fechaTexto = sc.nextLine();
+            String[] partesFecha = fechaTexto.split("/");
+            LocalDate fecha = LocalDate.of(Integer.parseInt(partesFecha[2]), Integer.parseInt(partesFecha[1]), Integer.parseInt(partesFecha[0]));
             String[][] datos = controlador.listLlegadasSalidasTerminal(nombre, fecha);
             System.out.println("\n--- LLEGADAS/SALIDAS ---");
-            System.out.printf("%-10s | %-8s | %-10s | %-20s | %-10s\n", "TIPO", "HORA", "PATENTE", "EMPRESA", "PASAJEROS");
+            System.out.printf("%-10s | %-8s | %-10s | %-20s | %-10s\n", "LLEGADA /SALIDA ", "HORA", "PATENTE BUS", "NOMBRE EMPRESA", "NRO PASAJEROS");
             System.out.println("-----------------------------------------------------------------------");
             for (int i = 0; i < datos.length; i++) {
                 System.out.printf("%-10s | %-8s | %-10s | %-20s | %-10s\n", datos[i][0], datos[i][1], datos[i][2], datos[i][3], datos[i][4]);
@@ -397,7 +409,7 @@ public class UISVP {
 
             String[][] datos = controlador.listVentasEmpresa(Rut.of(rut));
             System.out.println("\n--- VENTAS EMPRESA ---");
-            System.out.printf("%-12s | %-8s | %-10s | %-15s\n", "FECHA", "TIPO", "MONTO PAG", "TIPO PAGO");
+            System.out.printf("%-12s | %-8s | %-10s | %-15s\n", "FECHA", "TIPO", "MONTO PAGADO", "TIPO PAGO");
             System.out.println("-----------------------------------------------------");
             for (int i = 0; i < datos.length; i++) {
                 System.out.printf("%-12s | %-8s | $%-9s | %-15s\n", datos[i][0], datos[i][1], datos[i][2], datos[i][3]);
@@ -409,13 +421,16 @@ public class UISVP {
     }
 
     private void consultaViajesFecha() {
-        System.out.print("Fecha [yyyy-mm-dd]: ");
-        LocalDate fecha = LocalDate.parse(sc.nextLine());
-        System.out.print("Comuna origen: ");
+        System.out.print("Fecha [dd/mm/yyyy]: ");
+        String fechaTexto = sc.nextLine();
+        String[] partesFecha = fechaTexto.split("/");
+        LocalDate fecha = LocalDate.of(Integer.parseInt(partesFecha[2]), Integer.parseInt(partesFecha[1]), Integer.parseInt(partesFecha[0]));
+        System.out.print("Origen (comuna): ");
         String salida = sc.nextLine();
-        System.out.print("Comuna destino: ");
+        System.out.print("Destino (comuna): ");
         String llegada = sc.nextLine();
-        System.out.print("Cantidad de pasajes buscados: ");
+        System.out.print("Pasajes a vender");
+        System.out.print("Cantidad de pasajes: ");
         int pasajes = Integer.parseInt(sc.nextLine());
 
         String[][] datos = sistema.getHorariosDisponibles(fecha, salida, llegada, pasajes);
@@ -428,7 +443,7 @@ public class UISVP {
                 System.out.printf("%-10s | %-8s | $%-9s | %-10s\n", datos[i][0], datos[i][1], datos[i][2], datos[i][3]);
             }
         } else {
-            System.out.println("No se encontraron viajes con esos criterios.");
+            System.out.println("No se encontraron viajes.");
         }
     }
 
