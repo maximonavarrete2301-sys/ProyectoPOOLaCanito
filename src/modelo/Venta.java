@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Venta {
+
     private String idDocumento;
     private TipoDocumento tipo;
     private LocalDate fecha;
@@ -12,12 +13,13 @@ public class Venta {
     private Pago pago;
     private ArrayList<Pasaje> pasajes;
 
-    public Venta(String id, TipoDocumento tipo, LocalDate fec, Cliente cli) {
-        this.idDocumento = id;
+    public Venta(String idDocumento, TipoDocumento tipo, LocalDate fecha, Cliente cliente) {
+        this.idDocumento = idDocumento;
         this.tipo = tipo;
-        this.fecha = fec;
-        this.cliente = cli;
+        this.fecha = fecha;
+        this.cliente = cliente;
         this.pasajes = new ArrayList<>();
+
         if (this.cliente != null) {
             this.cliente.addVenta(this);
         }
@@ -40,8 +42,12 @@ public class Venta {
     }
 
     public void createPasaje(int asiento, Viaje viaje, Pasajero pasajero) {
-        Pasaje nuevoPasaje = new Pasaje(asiento, viaje, pasajero, this);
-        pasajes.add(nuevoPasaje);
+        if (viaje == null || pasajero == null) {
+            return;
+        }
+
+        Pasaje nuevo = new Pasaje(asiento, viaje, pasajero, this);
+        pasajes.add(nuevo);
     }
 
     public Pasaje[] getPasajes() {
@@ -50,25 +56,29 @@ public class Venta {
 
     public int getMonto() {
         int total = 0;
+
         for (Pasaje p : pasajes) {
-            total += p.getViaje().getPrecio();
+            total = total + p.getViaje().getPrecio();
         }
+
         return total;
     }
 
     public boolean pagaMonto() {
-        if (this.pago != null) {
+        if (pago != null) {
             return false;
         }
-        this.pago = new PagoEfectivo(getMonto());
+
+        pago = new PagoEfectivo(getMonto());
         return true;
     }
 
     public boolean pagaMonto(long nroTarjeta) {
-        if (this.pago != null) {
+        if (pago != null) {
             return false;
         }
-        this.pago = new PagoTarjeta(getMonto(), nroTarjeta);
+
+        pago = new PagoTarjeta(getMonto(), nroTarjeta);
         return true;
     }
 
@@ -76,19 +86,49 @@ public class Venta {
         if (pago == null) {
             return null;
         }
+
         if (pago instanceof PagoEfectivo) {
-            return " efectivo ";
+            return "efectivo";
         }
+
         if (pago instanceof PagoTarjeta) {
-            return " tarjeta ";
+            return "tarjeta";
         }
-        return "";
+
+        return null;
     }
 
     public int getMontoPagado() {
         if (pago == null) {
             return 0;
         }
+
         return pago.getMonto();
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Venta ventaComparada = (Venta) obj;
+
+        if (idDocumento == null) {
+            return ventaComparada.idDocumento == null;
+        }
+
+        return idDocumento.equals(ventaComparada.idDocumento) && tipo == ventaComparada.tipo;
+    }
 }
+
+
+
