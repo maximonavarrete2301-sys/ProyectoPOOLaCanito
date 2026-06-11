@@ -1,5 +1,7 @@
 package modelo;
 
+//Victor Diaz
+
 import java.util.ArrayList;
 
 public class Bus {

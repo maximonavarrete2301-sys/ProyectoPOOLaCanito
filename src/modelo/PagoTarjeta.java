@@ -1,5 +1,7 @@
 package modelo;
 
+//Victor Diaz
+
 public class PagoTarjeta extends Pago {
 
     private long nroTarjeta;

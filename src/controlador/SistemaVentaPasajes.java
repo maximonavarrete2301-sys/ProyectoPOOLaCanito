@@ -1,5 +1,7 @@
 package controlador;
 
+//Victor Diaz, Maximo Navarrete, Rodrigo Henriquez
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;

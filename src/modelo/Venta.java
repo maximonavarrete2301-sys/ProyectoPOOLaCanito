@@ -1,5 +1,7 @@
 package utilidades;
 
+//Victor Diaz
+
 import modelo.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -105,6 +107,7 @@ public class Venta {
 
         return pago.getMonto();
     }
+<<<<<<< HEAD:src/modelo/Venta.java
 
     @Override
     public boolean equals(Object obj) {
@@ -132,3 +135,6 @@ public class Venta {
 
 
 
+=======
+}
+>>>>>>> 6bda7e00d4af761d685a3ce315b5af2a9c343d3f:src/utilidades/Venta.java
