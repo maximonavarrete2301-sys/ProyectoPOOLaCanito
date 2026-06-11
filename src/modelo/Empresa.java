@@ -7,7 +7,7 @@ import utilidades.Rut;
 import utilidades.IdPersona;
 import utilidades.Nombre;
 import utilidades.Direccion;
-import utilidades.Venta;
+import modelo.Venta;
 
 public class Empresa {
 

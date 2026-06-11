@@ -1,6 +1,6 @@
 //Maximo Navarrete Fernandez
 package modelo;
-import utilidades.Venta;
+import modelo.Venta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
