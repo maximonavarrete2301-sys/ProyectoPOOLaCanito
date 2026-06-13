@@ -1,5 +1,6 @@
 //Maximo Navarrete Fernandez
 package controlador;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -46,6 +47,7 @@ public class ControladorEmpresas {
     public void createBus(String patente, String marca, String modelo, int nroAsientos, Rut rutEmpresa) {
 
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
+
         if (empresaOpt.isEmpty()) {
 
             throw new SistemaVentaPasajesException("No existe empresa con el rut indicado");
@@ -78,8 +80,11 @@ public class ControladorEmpresas {
     }
 
     public void hireConductorForEmpresa(Rut rutEmpresa, IdPersona id, Nombre nom, Direccion dir) {
+
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
+
         if (empresaOpt.isEmpty()) {
+
             throw new SistemaVentaPasajesException("No existe empresa con el rut indicado");
         }
 
@@ -92,6 +97,7 @@ public class ControladorEmpresas {
     }
 
     public void hireAuxiliarForEmpresa(Rut rutEmpresa, IdPersona id, Nombre nom, Direccion dir) {
+
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
 
         if (empresaOpt.isEmpty()) {
@@ -110,67 +116,97 @@ public class ControladorEmpresas {
     public String[][] listEmpresas() {
 
         String[][] listado = new String[empresas.size()][5];
+
         for (int i = 0; i < empresas.size(); i++) {
 
             Empresa e = empresas.get(i);
+
             listado[i][0] = e.getRut().toString();
             listado[i][1] = e.getNombre();
             listado[i][2] = e.getUrl();
             listado[i][3] = String.valueOf(e.getTripulantes().length);
             listado[i][4] = String.valueOf(e.getBuses().length);
         }
+
         return listado;
     }
 
     public String[][] listLlegadasSalidasTerminal(String nombre, LocalDate fecha) {
+
         Optional<Terminal> terminalOpt = findTerminal(nombre);
+
         if (terminalOpt.isEmpty()) {
+
             throw new SistemaVentaPasajesException("No existe terminal con el nombre indicado");
         }
+
         Terminal terminal = terminalOpt.get();
+
         Viaje[] salidas = terminal.getSalidas();
         Viaje[] llegadas = terminal.getLlegadas();
+
         int count = 0;
+
         for (Viaje s : salidas) {
+
             if (s.getFecha().equals(fecha)) {
                 count++;
             }
         }
+
         for (Viaje l : llegadas) {
+
             if (l.getFecha().equals(fecha)) {
                 count++;
             }
         }
+
         String[][] matriz = new String[count][5];
+
         int index = 0;
+
         for (Viaje v : salidas) {
+
             if (v.getFecha().equals(fecha)) {
+
                 matriz[index][0] = "Salida";
                 matriz[index][1] = v.getHora().toString();
                 matriz[index][2] = v.getBus().getPatente();
                 matriz[index][3] = v.getBus().getEmpresa().getNombre();
                 matriz[index][4] = String.valueOf(v.getListaPasajeros().length);
+
                 index++;
             }
         }
+
         for (Viaje v : llegadas) {
+
             if (v.getFecha().equals(fecha)) {
+
                 matriz[index][0] = "Llegada";
                 matriz[index][1] = v.getFechaHoraTermino().toLocalTime().toString();
                 matriz[index][2] = v.getBus().getPatente();
                 matriz[index][3] = v.getBus().getEmpresa().getNombre();
                 matriz[index][4] = String.valueOf(v.getListaPasajeros().length);
+
                 index++;
             }
         }
+
         return matriz;
     }
+
     public String[][] listVentasEmpresa(Rut rut) {
+
         Optional<Empresa> empresaOpt = findEmpresa(rut);
+
         if (empresaOpt.isEmpty()) {
+
             throw new SistemaVentaPasajesException("No existe empresa con el rut indicado");
         }
+
         Venta[] ventasEmpresa = empresaOpt.get().getVentas();
+
         String[][] listado = new String[ventasEmpresa.length][4];
 
         for (int i = 0; i < ventasEmpresa.length; i++) {
@@ -186,7 +222,8 @@ public class ControladorEmpresas {
         return listado;
     }
 
-    public Optional<Empresa> findEmpresa(Rut rut) {
+    protected Optional<Empresa> findEmpresa(Rut rut) {
+
         for (Empresa e : empresas) {
 
             if (e.getRut().equals(rut)) {
@@ -197,8 +234,10 @@ public class ControladorEmpresas {
         return Optional.empty();
     }
 
-    Optional<Terminal> findTerminal(String nombre) {
+    protected Optional<Terminal> findTerminal(String nombre) {
+
         for (Terminal t : terminales) {
+
             if (t.getNombre().equals(nombre)) {
                 return Optional.of(t);
             }
@@ -207,17 +246,22 @@ public class ControladorEmpresas {
         return Optional.empty();
     }
 
-    Optional<Terminal> findTerminalPorComuna(String comuna) {
+    protected Optional<Terminal> findTerminalPorComuna(String comuna) {
+
         for (Terminal t : terminales) {
 
             if (t.getDireccion().getComuna().equals(comuna)) {
                 return Optional.of(t);
             }
         }
+
         return Optional.empty();
     }
-    Optional<Bus> findBus(String patente) {
+
+    protected Optional<Bus> findBus(String patente) {
+
         for (Bus b : buses) {
+
             if (b.getPatente().equals(patente)) {
                 return Optional.of(b);
             }
@@ -226,18 +270,22 @@ public class ControladorEmpresas {
         return Optional.empty();
     }
 
-    Optional<Conductor> findConductor(IdPersona id, Rut rutEmpresa) {
+    protected Optional<Conductor> findConductor(IdPersona id, Rut rutEmpresa) {
+
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
 
         if (empresaOpt.isPresent()) {
+
             return empresaOpt.get().findConductor(id);
         }
 
         return Optional.empty();
     }
 
-    Optional<Auxiliar> findAuxiliar(IdPersona id, Rut rutEmpresa) {
+    protected Optional<Auxiliar> findAuxiliar(IdPersona id, Rut rutEmpresa) {
+
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
+
         if (empresaOpt.isPresent()) {
 
             return empresaOpt.get().findAuxiliar(id);

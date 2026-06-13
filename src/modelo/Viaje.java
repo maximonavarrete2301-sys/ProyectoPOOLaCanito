@@ -1,9 +1,11 @@
 //Maximo Navarrete Fernandez
 package modelo;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+
 public class Viaje {
 
     private LocalDate fecha;
@@ -18,19 +20,21 @@ public class Viaje {
     private Auxiliar auxiliar;
     private ArrayList<Pasaje> pasajes;
 
-    public Viaje(LocalDate fecha, LocalTime hora, int precio, int duracion, Bus bus, Auxiliar auxiliar, Conductor[] conductoresArr, Terminal terminalSalida, Terminal terminalLlegada) {
+    public Viaje(LocalDate fecha, LocalTime hora, int precio, int duracion, Bus bus,
+                 Auxiliar auxiliar, Conductor[] conductoresArr,
+                 Terminal terminalSalida, Terminal terminalLlegada) {
 
-        this.fecha=fecha;
-        this.hora=hora;
-        this.precio=precio;
-        this.duracion=duracion;
-        this.bus= bus;
-        this.auxiliar=auxiliar;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.precio = precio;
+        this.duracion = duracion;
+        this.bus = bus;
+        this.auxiliar = auxiliar;
 
-        this.terminalSalida= terminalSalida;
-        this.terminalLlegada=terminalLlegada;
-        this.conductores=new ArrayList<>();
-        this.pasajes=new ArrayList<>();
+        this.terminalSalida = terminalSalida;
+        this.terminalLlegada = terminalLlegada;
+        this.conductores = new ArrayList<>();
+        this.pasajes = new ArrayList<>();
 
         if (this.auxiliar != null) {
             this.auxiliar.addViaje(this);
@@ -117,6 +121,13 @@ public class Viaje {
                 conductores.add(conductor);
                 conductor.addViaje(this);
             }
+        }
+    }
+    public void addConductor(Conductor conductor) {
+
+        if (conductor != null && !conductores.contains(conductor)) {
+            conductores.add(conductor);
+            conductor.addViaje(this);
         }
     }
 
