@@ -1,5 +1,5 @@
 package persistencia;
-//Rodrigo Henriquez
+//Victor Diaz, Maximo Navarrete, Rodrigo Henriquez
 import controlador.ControladorEmpresas;
 import controlador.SistemaVentaPasajes;
 import excepciones.SVPException;
