@@ -1,5 +1,5 @@
 package vista;
-//Rodrigo Henriquez
+//Victor Diaz, Rodrigo Henriquez, Maximo Navarrete
 import controlador.ControladorEmpresas;
 import controlador.SistemaVentaPasajes;
 import excepciones.SVPException;
@@ -101,7 +101,7 @@ public class UISVP {
     private void createEmpresa() {
         try {
             System.out.println("\n...::::: Creando una nueva Empresa ::::....");
-            System.out.print("             R.U.T : ");
+            System.out.print("             R.U.T (Con puntos y guion): ");
             String rut = sc.nextLine().trim();
             if (rut.isEmpty()) { System.out.println("*** Error: RUT no puede estar vacio ***"); return; }
             System.out.print("          Nombre : ");
@@ -122,7 +122,7 @@ public class UISVP {
         try {
             System.out.println("\n...:::::: Contratando un nuevo Tripulante ::::....");
             System.out.println("\n:::: Dato de la Empresa");
-            System.out.print("            R.U.T : ");
+            System.out.print("            R.U.T (Con puntos y guion): ");
             String rutEmp = sc.nextLine().trim();
             if (rutEmp.isEmpty()) { System.out.println("*** Error: RUT no puede estar vacio ***"); return; }
 
@@ -213,7 +213,7 @@ public class UISVP {
             if (asientos <= 0) { System.out.println("*** Error: numero de asientos debe ser mayor a 0 ***"); return; }
 
             System.out.println("\n:::: Dato de la empresa");
-            System.out.print("            R.U.T : ");
+            System.out.print("            R.U.T (Con puntos y guion): ");
             String rut = sc.nextLine().trim();
             if (rut.isEmpty()) { System.out.println("*** Error: RUT no puede estar vacio ***"); return; }
 
@@ -516,7 +516,7 @@ public class UISVP {
     private void listVentasEmpresa() {
         try {
             System.out.println("\n...::::: Listado de ventas de empresa ::::....");
-            System.out.print("R.U.T : ");
+            System.out.print("R.U.T (Con puntos y guion): ");
             String rut = sc.nextLine().trim();
             if (rut.isEmpty()) { System.out.println("*** Error: RUT no puede estar vacio ***"); return; }
 
@@ -606,7 +606,7 @@ public class UISVP {
         try {
             int tipo = Integer.parseInt(sc.nextLine().trim());
             if (tipo == 1) {
-                System.out.print("         R.U.T : ");
+                System.out.print("         R.U.T (Con puntos y guion): ");
                 String rut = sc.nextLine().trim();
                 if (rut.isEmpty()) { System.out.println("*** Error: RUT no puede estar vacio ***"); return null; }
                 return Rut.of(rut);

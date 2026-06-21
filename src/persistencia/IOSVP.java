@@ -1,5 +1,6 @@
 package persistencia;
 //Victor Diaz, Maximo Navarrete, Rodrigo Henriquez
+
 import controlador.ControladorEmpresas;
 import controlador.SistemaVentaPasajes;
 import excepciones.SVPException;
@@ -18,15 +19,15 @@ import java.util.function.Predicate;
 
 public class IOSVP {
 
-    private static IOSVP instancia;
+    private static IOSVP instance;
 
     private IOSVP() {}
 
     public static IOSVP getInstance() {
-        if (instancia == null) {
-            instancia = new IOSVP();
+        if (instance == null) {
+            instance = new IOSVP();
         }
-        return instancia;
+        return instance;
     }
 
     private static final String ARCHIVO_DATOS_INICIALES = "SVPDatosIniciales.txt";

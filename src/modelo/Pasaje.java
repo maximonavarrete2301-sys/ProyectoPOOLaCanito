@@ -43,4 +43,21 @@ public class Pasaje {
     public Venta getVenta() {
         return venta;
     }
+
+    public String toString() {
+        String texto = "==============================================\n";
+        texto += "PASAJE N°: " + numero + "\n";
+        texto += "Documento: " + venta.getIdDocumento() + " (" + venta.getTipo() + ")\n";
+        texto += "Pasajero: " + pasajero.getNombreCompleto() + "\n";
+        texto += "Fecha viaje: " + viaje.getFecha() + "\n";
+        texto += "Hora salida: " + viaje.getHora() + "\n";
+        texto += "Bus: " + viaje.getBus().getPatente() + "\n";
+        texto += "Origen: " + viaje.getTerminalSalida().getNombre() + "\n";
+        texto += "Destino: " + viaje.getTerminalLlegada().getNombre() + "\n";
+        texto += "Asiento: " + asiento + "\n";
+        texto += "Precio: $" + viaje.getPrecio() + "\n";
+        texto += "==============================================\n";
+
+        return texto;
+    }
 }

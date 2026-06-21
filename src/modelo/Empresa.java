@@ -7,7 +7,6 @@ import utilidades.Rut;
 import utilidades.IdPersona;
 import utilidades.Nombre;
 import utilidades.Direccion;
-import modelo.Venta;
 
 public class Empresa {
 
@@ -56,15 +55,27 @@ public class Empresa {
 
         return lista;
     }
+    public boolean addConductor(IdPersona id, Nombre nom, Direccion dir) {
 
-    public void addConductor(IdPersona id, Nombre nom, Direccion dir) {
+        if (findConductor(id) != null) {
+            return false;
+        }
+
         Conductor conductor = new Conductor(id, nom, dir);
         tripulantes.add(conductor);
-    }
 
-    public void addAuxiliar(IdPersona id, Nombre nom, Direccion dir) {
+        return true;
+    }
+    public boolean addAuxiliar(IdPersona id, Nombre nom, Direccion dir) {
+
+        if (findAuxiliar(id) != null) {
+            return false;
+        }
+
         Auxiliar auxiliar = new Auxiliar(id, nom, dir);
         tripulantes.add(auxiliar);
+
+        return true;
     }
 
     public Conductor findConductor(IdPersona id) {
