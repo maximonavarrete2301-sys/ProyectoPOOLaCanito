@@ -6,15 +6,12 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-
 import excepciones.SVPException;
 import utilidades.*;
 import modelo.*;
 
 public class ControladorEmpresas implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     private static ControladorEmpresas instance;
 
     private List<Empresa> empresas;
@@ -38,21 +35,22 @@ public class ControladorEmpresas implements Serializable {
         if (findEmpresa(rut).isPresent()) {
             throw new SVPException("Ya existe empresa con el rut indicado");
         }
-        Empresa nueva = new Empresa(rut, nombre, url);
+        Empresa nueva = new Empresa(rut, nombre);
+        nueva.setUrl(url);
         empresas.add(nueva);
     }
 
     public void createBus(String patente, String marca, String modelo, int nroAsientos, Rut rutEmpresa) {
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
-
         if (empresaOpt.isEmpty()) {
             throw new SVPException("No existe empresa con el rut indicado");
         }
         if (findBus(patente).isPresent()) {
             throw new SVPException("Ya existe bus con la patente indicada");
         }
-
-        Bus nuevo = new Bus(patente, marca, modelo, nroAsientos, empresaOpt.get());
+        Bus nuevo = new Bus(patente, nroAsientos, empresaOpt.get());
+        nuevo.setMarca(marca);
+        nuevo.setModelo(modelo);
         buses.add(nuevo);
         empresaOpt.get().addBus(nuevo);
     }
@@ -64,20 +62,16 @@ public class ControladorEmpresas implements Serializable {
         if (findTerminalPorComuna(direccion.getComuna()).isPresent()) {
             throw new SVPException("Ya existe terminal en la comuna indicada");
         }
-
         Terminal nuevo = new Terminal(nombre, direccion);
         terminales.add(nuevo);
     }
 
     public void hireConductorForEmpresa(Rut rutEmpresa, IdPersona id, Nombre nom, Direccion dir) {
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
-
         if (empresaOpt.isEmpty()) {
             throw new SVPException("No existe empresa con el rut indicado");
         }
-
         boolean ok = empresaOpt.get().addConductor(id, nom, dir);
-
         if (!ok) {
             throw new SVPException("Ya está contratado el conductor con el id indicado en la empresa señalada");
         }
@@ -85,13 +79,10 @@ public class ControladorEmpresas implements Serializable {
 
     public void hireAuxiliarForEmpresa(Rut rutEmpresa, IdPersona id, Nombre nom, Direccion dir) {
         Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
-
         if (empresaOpt.isEmpty()) {
             throw new SVPException("No existe empresa con el rut indicado");
         }
-
         boolean ok = empresaOpt.get().addAuxiliar(id, nom, dir);
-
         if (!ok) {
             throw new SVPException("Ya está contratado el auxiliar con el id indicado en la empresa señalada");
         }
@@ -111,11 +102,9 @@ public class ControladorEmpresas implements Serializable {
 
     public String[][] listLlegadasSalidasTerminal(String nombre, LocalDate fecha) {
         Optional<Terminal> terminalOpt = findTerminal(nombre);
-
         if (terminalOpt.isEmpty()) {
             throw new SVPException("No existe terminal con el nombre indicado");
         }
-
         Terminal terminal = terminalOpt.get();
         List<String[]> listaResultados = new LinkedList<>();
 
@@ -144,11 +133,9 @@ public class ControladorEmpresas implements Serializable {
 
     public String[][] listVentasEmpresa(Rut rut) {
         Optional<Empresa> empresaOpt = findEmpresa(rut);
-
         if (empresaOpt.isEmpty()) {
             throw new SVPException("No existe empresa con el rut indicado");
         }
-
         Venta[] ventasEmpresa = empresaOpt.get().getVentas();
 
         return Arrays.stream(ventasEmpresa)
@@ -187,12 +174,18 @@ public class ControladorEmpresas implements Serializable {
 
     protected Optional<Conductor> findConductor(IdPersona id, Rut rutEmpresa) {
         return findEmpresa(rutEmpresa)
-                .flatMap(e -> e.findConductor(id));
+                .flatMap(e -> Arrays.stream(e.getTripulantes())
+                        .filter(t -> t instanceof Conductor && t.getIdPersona().equals(id))
+                        .map(t -> (Conductor) t)
+                        .findFirst());
     }
 
     protected Optional<Auxiliar> findAuxiliar(IdPersona id, Rut rutEmpresa) {
         return findEmpresa(rutEmpresa)
-                .flatMap(e -> e.findAuxiliar(id));
+                .flatMap(e -> Arrays.stream(e.getTripulantes())
+                        .filter(t -> t instanceof Auxiliar && t.getIdPersona().equals(id))
+                        .map(t -> (Auxiliar) t)
+                        .findFirst());
     }
 
     protected void setInstanciaPersistente(ControladorEmpresas obj) {
