@@ -1,4 +1,4 @@
-package utilidades;
+package modelo;
 
 //Victor Diaz
 

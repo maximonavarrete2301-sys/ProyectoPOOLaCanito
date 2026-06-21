@@ -1,0 +1,32 @@
+CP;11.111.111-1;SR;José Esteban;Cid;Aedo;(+569) 1122 3344;jose@fake.email.cl;SRA;Lidia Andrea;Solis;Robles;(+569) 9777 4432
+CP;22.222.222-2;SRA;María Paz;Daza;Barrera;(+569) 1672 3421;maria@fake.email.cl;SR;Rafael Alonso;Flores;Caro;(+569) 8070 1641
+C;33.333.333-3;SRA;Ángela Eugenia;Muñoz;Naranjo;(+569) 6172 3323;angela@fake.email.cl
+P;44.444.444-4;SR;Carlos Patricio;Orellana;Godoy;(+569) 9872 6472;SRA;Karen Ana;Leon;Pino;(+569) 4734 4111
++
+88.888.888-8;Buses Ñuble;https://www.busesnuble.cl
+99.999.999-9;Efe Bus;https://www.efebus.cl
++
+A;55.555.555-5;SR;Juan Esteban;Lagos;Rios;San Carlos;201;Talcahuano;88.888.888-8
+C;66.666.666-6;SR;Diego Andrés;Pavez;Martel;Av Francia;730;Los Lagos;88.888.888-8
+C;77.777.777-7;SRA;Elena Rosa;Saez;Torres;Andalucia;2778;Linares;88.888.888-8
++
+El Pinar;Los Alamos;450;Pinto
+El Nevado Alto;Las Violetas;1830;Talcahuano
+Sofia III;San Jerónimo;169;Alhué
++
+ABCD12;Mercedes-Benz;500;45;88.888.888-8
+EFGH34;Volvo;B450R;52;88.888.888-8
+IJKL56;Scania;K310;40;99.999.999-9
+MNOP78;Marcopolo;Paradiso;38;88.888.888-8
+QRST90;Irizar;i6;44;88.888.888-8
++
+15-12-2024;08:00;3500;90;EFGH34;55.555.555-5;66.666.666-6;El Nevado Alto;El Pinar
+15-12-2024;11:30;4000;90;EFGH34;55.555.555-5;66.666.666-6;El Pinar;El Nevado Alto
+15-12-2024;16:00;3500;90;EFGH34;55.555.555-5;66.666.666-6;El Nevado Alto;El Pinar
+16-12-2024;08:30;9600;330;QRST90;55.555.555-5;77.777.777-7;El Pinar;Sofia III
+17-12-2024;08:30;9600;330;QRST90;55.555.555-5;77.777.777-7;Sofia III;El Pinar
+18-12-2024;08:00;3500;90;EFGH34;55.555.555-5;66.666.666-6;El Nevado Alto;El Pinar
+18-12-2024;11:30;4000;90;EFGH34;55.555.555-5;66.666.666-6;El Pinar;El Nevado Alto
+18-12-2024;16:00;3500;90;EFGH34;55.555.555-5;66.666.666-6;El Nevado Alto;El Pinar
+19-12-2024;08:30;9600;330;QRST90;55.555.555-5;77.777.777-7;El Pinar;Sofia III
+20-12-2024;08:30;9600;330;QRST90;55.555.555-5;77.777.777-7;Sofia III;El Pinar

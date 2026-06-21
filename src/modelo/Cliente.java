@@ -2,7 +2,7 @@
 package modelo;
 import utilidades.IdPersona;
 import utilidades.Nombre;
-import utilidades.Venta;
+import modelo.Venta;
 
 import java.util.ArrayList;
 

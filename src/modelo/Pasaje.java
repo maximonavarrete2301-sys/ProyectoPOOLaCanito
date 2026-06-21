@@ -2,7 +2,7 @@
 
 package modelo;
 
-import utilidades.Venta;
+import modelo.Venta;
 
 import java.util.Random;
 
