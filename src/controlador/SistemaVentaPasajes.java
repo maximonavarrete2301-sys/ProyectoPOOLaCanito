@@ -325,4 +325,22 @@ public class SistemaVentaPasajes implements Serializable {
         controladorEmpresas.setDatosIniciales(datos);
 
     }
+
+    public void saveDatosSistema() {
+        IOSVP.getInstancia().saveControladores(new Object[]{this, controladorEmpresas});
+    }
+
+    public void readDatosSistema() {
+        Object[] controladores = IOSVP.getInstancia().readControladores();
+
+        SistemaVentaPasajes svpGuardado = (SistemaVentaPasajes) controladores[0];
+        ControladorEmpresas ceGuardado = (ControladorEmpresas) controladores[1];
+
+        this.clientes = svpGuardado.clientes;
+        this.pasajeros = svpGuardado.pasajeros;
+        this.viajes = svpGuardado.viajes;
+        this.ventas = svpGuardado.ventas;
+
+        controladorEmpresas.setInstanciaPersistente(ceGuardado);
+    }
 }
