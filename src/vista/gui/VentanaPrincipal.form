@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="vista.gui.VentanaPrincipal">
+  <grid id="d565de" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="10" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="8" vgap="8">
+    <margin top="14" left="14" bottom="14" right="14"/>
+    <constraints>
+      <xy x="20" y="20" width="560" height="520"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+    <component id="4755b6" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Sistema de Venta de Pasajes"/>
+      </properties>
+    </component>
+    <component id="710634" class="javax.swing.JButton">
+      <constraints>
+        <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Leer datos iniciales"/>
+      </properties>
+    </component>
+    <component id="00deb3" class="javax.swing.JButton">
+      <constraints>
+        <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Guardar datos del sistema"/>
+      </properties>
+    </component>
+    <component id="dcfa62" class="javax.swing.JButton">
+      <constraints>
+        <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Recuperar datos del sistema"/>
+      </properties>
+    </component>
+    <component id="10aa2c" class="javax.swing.JButton">
+      <constraints>
+        <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Venta de pasajes"/>
+      </properties>
+    </component>
+    <component id="910892" class="javax.swing.JButton">
+      <constraints>
+        <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Crear viaje"/>
+      </properties>
+    </component>
+    <component id="8b5145" class="javax.swing.JButton">
+      <constraints>
+        <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Consulta: listar empresas"/>
+      </properties>
+    </component>
+    <component id="6e4e34" class="javax.swing.JButton">
+      <constraints>
+        <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Consulta: listar viajes"/>
+      </properties>
+    </component>
+    <component id="8b9484" class="javax.swing.JButton">
+      <constraints>
+        <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Consulta: ventas por empresa"/>
+      </properties>
+    </component>
+    <component id="30d0c9" class="javax.swing.JButton">
+      <constraints>
+        <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Salir"/>
+      </properties>
+    </component>
+    </children>
+  </grid>
+</form>

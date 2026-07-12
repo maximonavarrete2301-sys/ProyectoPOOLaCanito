@@ -34,153 +34,166 @@ public class IOSVP {
     private static final String ARCHIVO_OBJETOS = "SVPObjetos.obj";
 
     public Object[] readDatosIniciales() {
-        List<Object>    objetos     = new ArrayList<>();
-        List<Empresa>   empresas    = new ArrayList<>();
+        List<Object> objetos = new ArrayList<>();
+        List<Empresa> empresas = new ArrayList<>();
         List<Tripulante> tripulantes = new ArrayList<>();
-        List<Terminal>  terminales  = new ArrayList<>();
-        List<Bus>       buses       = new ArrayList<>();
+        List<Terminal> terminales = new ArrayList<>();
+        List<Bus> buses = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(ARCHIVO_DATOS_INICIALES), "UTF-8"))) {
 
             String linea;
             int seccion = 1;
+            int nroLinea = 0;
 
             while ((linea = br.readLine()) != null) {
+                nroLinea++;
+                linea = linea.trim();
 
-                if (linea.trim().equals("+")) {
+                if (linea.equals("+")) {
                     seccion++;
                     continue;
                 }
-                if (linea.trim().isEmpty()) continue;
+                if (linea.isEmpty()) {
+                    continue;
+                }
 
                 String[] p = linea.split(";");
+                int lineaActual = nroLinea;
 
-                switch (seccion) {
-                    case 1: {
-                        String tipo = p[0].trim();
-                        Rut rut = Rut.of(p[1].trim());
-                        Tratamiento trat = p[2].trim().equalsIgnoreCase("SRA")
-                                ? Tratamiento.SRA : Tratamiento.SR;
-                        Nombre nom = new Nombre(trat, p[3].trim(), p[4].trim(), p[5].trim());
-                        String fono = p[6].trim();
+                try {
+                    switch (seccion) {
+                        case 1: {
+                            validarColumnas(p, 8, lineaActual);
+                            String tipo = p[0].trim();
+                            Rut rut = Rut.of(p[1].trim());
+                            Tratamiento trat = parseTratamiento(p[2]);
+                            Nombre nom = new Nombre(trat, p[3].trim(), p[4].trim(), p[5].trim());
+                            String fono = p[6].trim();
 
-                        if (tipo.equals("C") || tipo.equals("CP")) {
-                            Cliente cli = new Cliente(rut, nom, p[7].trim());
-                            cli.setTelefono(fono);
-                            objetos.add(cli);
-                        }
+                            if (tipo.equals("C") || tipo.equals("CP")) {
+                                Cliente cli = new Cliente(rut, nom, p[7].trim());
+                                cli.setTelefono(fono);
+                                objetos.add(cli);
+                            }
 
-                        if (tipo.equals("P") || tipo.equals("CP")) {
-                            int idx = tipo.equals("P") ? 7 : 8;
-                            Tratamiento tratC = p[idx].trim().equalsIgnoreCase("SRA")
-                                    ? Tratamiento.SRA : Tratamiento.SR;
-                            Nombre nomC = new Nombre(tratC,
-                                    p[idx + 1].trim(), p[idx + 2].trim(), p[idx + 3].trim());
-                            String fonoC = p[idx + 4].trim();
-                            Pasajero pas = new Pasajero(rut, nom, nomC, fonoC);
-                            pas.setTelefono(fono);
-                            objetos.add(pas);
-                        }
-                        break;
-                    }
-
-                    case 2: {
-                        Empresa emp = new Empresa(Rut.of(p[0].trim()), p[1].trim(), p[2].trim());
-                        empresas.add(emp);
-                        objetos.add(emp);
-                        break;
-                    }
-
-                    case 3: {
-                        String tipo = p[0].trim();
-                        Rut rutT    = Rut.of(p[1].trim());
-                        Tratamiento trat = p[2].trim().equalsIgnoreCase("SRA")
-                                ? Tratamiento.SRA : Tratamiento.SR;
-                        Nombre nomT  = new Nombre(trat, p[3].trim(), p[4].trim(), p[5].trim());
-                        Direccion dir = new Direccion(p[6].trim(), p[7].trim(), p[8].trim());
-                        Rut rutEmp   = Rut.of(p[9].trim());
-
-                        Optional<Empresa> empOpt = findEmpresa(empresas, e -> e.getRut().equals(rutEmp));
-                        if (empOpt.isEmpty()) break;
-
-                        Empresa emp = empOpt.get();
-                        int cantAntes = emp.getTripulantes().length;
-
-                        if (tipo.equals("A")) {
-                            emp.addAuxiliar(rutT, nomT, dir);
-                        } else if (tipo.equals("C")) {
-                            emp.addConductor(rutT, nomT, dir);
-                        } else {
+                            if (tipo.equals("P") || tipo.equals("CP")) {
+                                int idx = tipo.equals("P") ? 7 : 8;
+                                validarColumnas(p, idx + 5, lineaActual);
+                                Tratamiento tratC = parseTratamiento(p[idx]);
+                                Nombre nomC = new Nombre(tratC,
+                                        p[idx + 1].trim(), p[idx + 2].trim(), p[idx + 3].trim());
+                                String fonoC = p[idx + 4].trim();
+                                Pasajero pas = new Pasajero(rut, nom, nomC, fonoC);
+                                pas.setTelefono(fono);
+                                objetos.add(pas);
+                            }
                             break;
                         }
 
-                        Tripulante[] todos = emp.getTripulantes();
-                        if (todos.length > cantAntes) {
-                            Tripulante nuevo = todos[todos.length - 1];
-                            tripulantes.add(nuevo);
-                            objetos.add(nuevo);
+                        case 2: {
+                            validarColumnas(p, 3, lineaActual);
+                            Empresa emp = new Empresa(Rut.of(p[0].trim()), p[1].trim(), p[2].trim());
+                            empresas.add(emp);
+                            objetos.add(emp);
+                            break;
                         }
-                        break;
+
+                        case 3: {
+                            validarColumnas(p, 10, lineaActual);
+                            String tipo = p[0].trim();
+                            Rut rutT = Rut.of(p[1].trim());
+                            Tratamiento trat = parseTratamiento(p[2]);
+                            Nombre nomT = new Nombre(trat, p[3].trim(), p[4].trim(), p[5].trim());
+                            Direccion dir = new Direccion(p[6].trim(), p[7].trim(), p[8].trim());
+                            Rut rutEmp = Rut.of(p[9].trim());
+
+                            Empresa emp = findEmpresa(empresas, e -> e.getRut().equals(rutEmp))
+                                    .orElseThrow(() -> new SVPException("No existe empresa para tripulante en línea " + lineaActual));
+
+                            int cantAntes = emp.getTripulantes().length;
+
+                            if (tipo.equals("A")) {
+                                emp.addAuxiliar(rutT, nomT, dir);
+                            } else if (tipo.equals("C")) {
+                                emp.addConductor(rutT, nomT, dir);
+                            } else {
+                                throw new SVPException("Tipo de tripulante inválido en línea " + lineaActual);
+                            }
+
+                            Tripulante[] todos = emp.getTripulantes();
+                            if (todos.length > cantAntes) {
+                                Tripulante nuevo = todos[todos.length - 1];
+                                tripulantes.add(nuevo);
+                                objetos.add(nuevo);
+                            }
+                            break;
+                        }
+
+                        case 4: {
+                            validarColumnas(p, 4, lineaActual);
+                            Direccion dir = new Direccion(p[1].trim(), p[2].trim(), p[3].trim());
+                            Terminal term = new Terminal(p[0].trim(), dir);
+                            terminales.add(term);
+                            objetos.add(term);
+                            break;
+                        }
+
+                        case 5: {
+                            validarColumnas(p, 5, lineaActual);
+                            Rut rutEmp = Rut.of(p[4].trim());
+                            Empresa emp = findEmpresa(empresas, e -> e.getRut().equals(rutEmp))
+                                    .orElseThrow(() -> new SVPException("No existe empresa para bus en línea " + lineaActual));
+
+                            Bus bus = new Bus(p[0].trim(), Integer.parseInt(p[3].trim()), emp);
+                            bus.setMarca(p[1].trim());
+                            bus.setModelo(p[2].trim());
+                            buses.add(bus);
+                            objetos.add(bus);
+                            break;
+                        }
+
+                        case 6: {
+                            validarColumnas(p, 9, lineaActual);
+                            LocalDate fecha = LocalDate.parse(p[0].trim(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                            LocalTime hora = LocalTime.parse(p[1].trim(), DateTimeFormatter.ofPattern("HH:mm"));
+                            int precio = Integer.parseInt(p[2].trim());
+                            int duracion = Integer.parseInt(p[3].trim());
+
+                            String patente = p[4].trim();
+                            Rut rutAux = Rut.of(p[5].trim());
+                            Rut rutCond = Rut.of(p[6].trim());
+                            String nomSalida = p[7].trim();
+                            String nomLlegada = p[8].trim();
+
+                            Bus bus = findBus(buses, b -> b.getPatente().equalsIgnoreCase(patente))
+                                    .orElseThrow(() -> new SVPException("No existe bus para viaje en línea " + lineaActual));
+                            Terminal salida = findTerminal(terminales, t -> t.getNombre().equalsIgnoreCase(nomSalida))
+                                    .orElseThrow(() -> new SVPException("No existe terminal de salida en línea " + lineaActual));
+                            Terminal llegada = findTerminal(terminales, t -> t.getNombre().equalsIgnoreCase(nomLlegada))
+                                    .orElseThrow(() -> new SVPException("No existe terminal de llegada en línea " + lineaActual));
+
+                            Empresa empresa = bus.getEmpresa();
+                            Auxiliar aux = (Auxiliar) findTripulante(empresa, rutAux, "Auxiliar")
+                                    .orElseThrow(() -> new SVPException("No existe auxiliar para viaje en línea " + lineaActual));
+                            Conductor cond = (Conductor) findTripulante(empresa, rutCond, "Conductor")
+                                    .orElseThrow(() -> new SVPException("No existe conductor para viaje en línea " + lineaActual));
+
+                            Viaje viaje = new Viaje(fecha, hora, precio, duracion,
+                                    bus, aux, new Conductor[]{cond}, salida, llegada);
+                            objetos.add(viaje);
+                            break;
+                        }
+
+                        default:
+                            throw new SVPException("Sección inválida en línea " + lineaActual);
                     }
-
-                    case 4: {
-                        Direccion dir = new Direccion(p[1].trim(), p[2].trim(), p[3].trim());
-                        Terminal term = new Terminal(p[0].trim(), dir);
-                        terminales.add(term);
-                        objetos.add(term);
-                        break;
-                    }
-
-                    case 5: {
-                        Rut rutEmp = Rut.of(p[4].trim());
-                        Optional<Empresa> empOpt = findEmpresa(empresas, e -> e.getRut().equals(rutEmp));
-                        if (empOpt.isEmpty()) break;
-
-                        Bus bus = new Bus(p[0].trim(), Integer.parseInt(p[3].trim()), empOpt.get());
-                        bus.setMarca(p[1].trim());
-                        bus.setModelo(p[2].trim());
-                        buses.add(bus);
-                        objetos.add(bus);
-                        break;
-                    }
-
-                    case 6: {
-                        LocalDate fecha = LocalDate.parse(p[0].trim(),
-                                DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        LocalTime hora  = LocalTime.parse(p[1].trim(),
-                                DateTimeFormatter.ofPattern("HH:mm"));
-                        int precio   = Integer.parseInt(p[2].trim());
-                        int duracion = Integer.parseInt(p[3].trim());
-
-                        String patente    = p[4].trim();
-                        Rut    rutAux     = Rut.of(p[5].trim());
-                        Rut    rutCond    = Rut.of(p[6].trim());
-                        String nomSalida  = p[7].trim();
-                        String nomLlegada = p[8].trim();
-
-                        Optional<Bus>      busOpt  = findBus(buses, b -> b.getPatente().equalsIgnoreCase(patente));
-                        Optional<Terminal> salOpt   = findTerminal(terminales, t -> t.getNombre().equalsIgnoreCase(nomSalida));
-                        Optional<Terminal> llegOpt  = findTerminal(terminales, t -> t.getNombre().equalsIgnoreCase(nomLlegada));
-
-                        if (busOpt.isEmpty() || salOpt.isEmpty() || llegOpt.isEmpty()) break;
-
-                        Auxiliar aux = (Auxiliar) tripulantes.stream()
-                                .filter(t -> t instanceof Auxiliar && t.getIdPersona().equals(rutAux))
-                                .findFirst().orElse(null);
-
-                        Conductor cond = (Conductor) tripulantes.stream()
-                                .filter(t -> t instanceof Conductor && t.getIdPersona().equals(rutCond))
-                                .findFirst().orElse(null);
-
-                        if (aux == null || cond == null) break;
-
-                        Viaje viaje = new Viaje(fecha, hora, precio, duracion,
-                                busOpt.get(), aux, new Conductor[]{ cond },
-                                salOpt.get(), llegOpt.get());
-                        objetos.add(viaje);
-                        break;
-                    }
+                } catch (SVPException e) {
+                    throw e;
+                } catch (RuntimeException e) {
+                    throw new SVPException("Error en la línea " + nroLinea + " del archivo "
+                            + ARCHIVO_DATOS_INICIALES + ": " + e.getMessage());
                 }
             }
 
@@ -192,6 +205,16 @@ public class IOSVP {
         }
 
         return objetos.toArray();
+    }
+
+    private void validarColumnas(String[] datos, int minimo, int nroLinea) {
+        if (datos.length < minimo) {
+            throw new SVPException("Faltan datos en la línea " + nroLinea);
+        }
+    }
+
+    private Tratamiento parseTratamiento(String texto) {
+        return texto.trim().equalsIgnoreCase("SRA") ? Tratamiento.SRA : Tratamiento.SR;
     }
 
     public void saveControladores(Object[] controladores) {

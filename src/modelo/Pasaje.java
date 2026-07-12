@@ -1,12 +1,14 @@
 //Victor Diaz 
 
 package modelo;
+import java.io.Serializable;
 
 import modelo.Venta;
 
 import java.util.Random;
 
-public class Pasaje {
+public class Pasaje implements Serializable {
+    private static final long serialVersionUID = 1L;
     private long numero;
     private int asiento;
     private Viaje viaje;

@@ -231,7 +231,8 @@ public class SistemaVentaPasajes implements Serializable {
                         String.valueOf(v.getPrecio()),
                         String.valueOf(v.getNroAsientosDisponibles()),
                         v.getBus().getPatente(),
-                        v.getTerminalSalida().getDireccion().getComuna()
+                        v.getTerminalSalida().getDireccion().getComuna(),
+                        v.getTerminalLlegada().getDireccion().getComuna()
                 })
                 .toArray(String[][]::new);
     }
@@ -319,6 +320,7 @@ public class SistemaVentaPasajes implements Serializable {
         this.pasajeros = svpGuardado.pasajeros;
         this.viajes = svpGuardado.viajes;
         this.ventas = svpGuardado.ventas;
-        controladorEmpresas.setInstanciaPersistente(ceGuardado);
+        this.controladorEmpresas = ceGuardado;
+        ceGuardado.setInstanciaPersistente(ceGuardado);
     }
 }

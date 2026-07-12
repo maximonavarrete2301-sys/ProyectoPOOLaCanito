@@ -1,4 +1,5 @@
 package modelo;
+import java.io.Serializable;
 
 //Rodrigo Henriquez
 
@@ -6,7 +7,8 @@ import utilidades.Direccion;
 import utilidades.IdPersona;
 import utilidades.Nombre;
 
-public abstract class Tripulante extends Persona {
+public abstract class Tripulante extends Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Direccion direccion;
 

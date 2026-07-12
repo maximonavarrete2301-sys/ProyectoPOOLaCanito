@@ -51,7 +51,6 @@ public class ControladorEmpresas implements Serializable {
         nuevo.setMarca(marca);
         nuevo.setModelo(modelo);
         buses.add(nuevo);
-        empresaOpt.get().addBus(nuevo);
     }
 
     public void createTerminal(String nombre, Direccion direccion) {
@@ -206,6 +205,57 @@ public class ControladorEmpresas implements Serializable {
             }
         });
     }
+
+    public String[][] listBuses() {
+        return buses.stream()
+                .map(b -> new String[]{
+                        b.getPatente(),
+                        b.getMarca(),
+                        b.getModelo(),
+                        String.valueOf(b.getNroAsientos()),
+                        b.getEmpresa().getRut().toString(),
+                        b.getEmpresa().getNombre()
+                })
+                .toArray(String[][]::new);
+    }
+
+    public String[][] listTerminales() {
+        return terminales.stream()
+                .map(t -> new String[]{
+                        t.getNombre(),
+                        t.getDireccion().getCalle(),
+                        t.getDireccion().getNumero(),
+                        t.getDireccion().getComuna()
+                })
+                .toArray(String[][]::new);
+    }
+
+    public String[][] listTripulantesEmpresa(Rut rutEmpresa, String rol) {
+        Optional<Empresa> empresaOpt = findEmpresa(rutEmpresa);
+        if (empresaOpt.isEmpty()) {
+            throw new SVPException("No existe empresa con el rut indicado");
+        }
+
+        return Arrays.stream(empresaOpt.get().getTripulantes())
+                .filter(t -> {
+                    if (rol.equalsIgnoreCase("Auxiliar")) {
+                        return t instanceof Auxiliar;
+                    }
+                    if (rol.equalsIgnoreCase("Conductor")) {
+                        return t instanceof Conductor;
+                    }
+                    return true;
+                })
+                .map(t -> new String[]{
+                        t instanceof Auxiliar ? "Auxiliar" : "Conductor",
+                        t.getIdPersona().toString(),
+                        t.getNombreCompleto().toString(),
+                        t.getDireccion().toString(),
+                        String.valueOf(t.getNroViajes())
+                })
+                .toArray(String[][]::new);
+    }
+
 }
 
 

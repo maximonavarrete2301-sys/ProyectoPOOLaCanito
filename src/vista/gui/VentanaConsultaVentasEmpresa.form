@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="vista.gui.VentanaConsultaVentasEmpresa">
+  <grid id="2fc88f" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="8" vgap="8">
+    <margin top="14" left="14" bottom="14" right="14"/>
+    <constraints>
+      <xy x="20" y="20" width="760" height="520"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+    <component id="c2684a" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="RUT empresa:"/>
+      </properties>
+    </component>
+    <component id="3e6e99" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="8934ff" class="javax.swing.JButton">
+      <constraints>
+        <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Buscar"/>
+      </properties>
+    </component>
+    <component id="eb9522" class="javax.swing.JTable">
+      <constraints>
+        <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="3" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties/>
+    </component>
+    </children>
+  </grid>
+</form>

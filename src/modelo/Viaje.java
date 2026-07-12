@@ -1,12 +1,14 @@
 //Maximo Navarrete Fernandez
 package modelo;
+import java.io.Serializable;
 import modelo.Venta;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
-public class Viaje {
+public class Viaje implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private LocalDate fecha;
     private LocalTime hora;

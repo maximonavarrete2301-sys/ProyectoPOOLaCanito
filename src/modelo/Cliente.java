@@ -1,12 +1,14 @@
 //MAXIMO NAVARRETE FERNANDEZ
 package modelo;
+import java.io.Serializable;
 import utilidades.IdPersona;
 import utilidades.Nombre;
 import modelo.Venta;
 
 import java.util.ArrayList;
 
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String email;
     private ArrayList<Venta> ventas;
 

@@ -1,11 +1,13 @@
 package modelo;
+import java.io.Serializable;
 
 //Rodrigo Henriquez
 
 import utilidades.IdPersona;
 import utilidades.Nombre;
 
-public abstract class Persona {
+public abstract class Persona implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private IdPersona idPersona;
     private Nombre nombreCompleto;
