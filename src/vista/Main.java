@@ -1,6 +1,10 @@
 package vista;
+
+import vista.gui.VentanaPrincipal;
+import javax.swing.SwingUtilities;
+
 public class Main {
     public static void main(String[] args) {
-        UISVP.getInstance().menu();
+        SwingUtilities.invokeLater(() -> new VentanaPrincipal().setVisible(true));
     }
 }

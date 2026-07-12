@@ -1,4 +1,5 @@
 package modelo;
+import java.io.Serializable;
 
 //Rodrigo Henriquez
 
@@ -8,7 +9,8 @@ import utilidades.IdPersona;
 import utilidades.Nombre;
 import utilidades.Direccion;
 
-public class Empresa {
+public class Empresa implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Rut rut;
     private String nombre;

@@ -1,7 +1,9 @@
 //Victor Diaz 
 
 package utilidades;
-public class Nombre {
+import java.io.Serializable;
+public class Nombre implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Tratamiento tratamiento;
     private String nombres;
     private String apellidoPaterno;

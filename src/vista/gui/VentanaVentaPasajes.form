@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="vista.gui.VentanaVentaPasajes">
+  <grid id="e46c78" binding="panelPrincipal" layout-manager="GridLayoutManager" row-count="14" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="8" vgap="8">
+    <margin top="14" left="14" bottom="14" right="14"/>
+    <constraints>
+      <xy x="20" y="20" width="900" height="700"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+    <component id="2bf233" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="ID documento:"/>
+      </properties>
+    </component>
+    <component id="8aede4" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="26b0f2" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Tipo documento:"/>
+      </properties>
+    </component>
+    <component id="c1aed3" class="javax.swing.JComboBox">
+      <constraints>
+        <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="833462" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Tipo ID cliente:"/>
+      </properties>
+    </component>
+    <component id="5abed7" class="javax.swing.JComboBox">
+      <constraints>
+        <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="822320" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="ID cliente:"/>
+      </properties>
+    </component>
+    <component id="29023d" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="236fa2" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Fecha viaje:"/>
+      </properties>
+    </component>
+    <component id="3ff55c" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="df97e3" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Comuna salida:"/>
+      </properties>
+    </component>
+    <component id="2e7fa5" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="051bb9" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Comuna llegada:"/>
+      </properties>
+    </component>
+    <component id="313aaa" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="9b630e" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Cantidad pasajes:"/>
+      </properties>
+    </component>
+    <component id="04cabd" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="76a4cc" class="javax.swing.JButton">
+      <constraints>
+        <grid row="8" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Iniciar venta / buscar viajes"/>
+      </properties>
+    </component>
+    <component id="755d2c" class="javax.swing.JTable">
+      <constraints>
+        <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="3" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties/>
+    </component>
+    <component id="ea3bee" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Asiento:"/>
+      </properties>
+    </component>
+    <component id="b0dcff" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="9eb23b" class="javax.swing.JLabel">
+      <constraints>
+        <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="ID pasajero:"/>
+      </properties>
+    </component>
+    <component id="97500f" class="javax.swing.JTextField">
+      <constraints>
+        <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value=""/>
+      </properties>
+    </component>
+    <component id="1fac66" class="javax.swing.JButton">
+      <constraints>
+        <grid row="12" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Agregar pasaje"/>
+      </properties>
+    </component>
+    <component id="b47b4d" class="javax.swing.JButton">
+      <constraints>
+        <grid row="12" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Pagar venta"/>
+      </properties>
+    </component>
+    <component id="93921b" class="javax.swing.JButton">
+      <constraints>
+        <grid row="13" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+      </constraints>
+      <properties>
+        <text value="Generar pasajes electrónicos"/>
+      </properties>
+    </component>
+    </children>
+  </grid>
+</form>
