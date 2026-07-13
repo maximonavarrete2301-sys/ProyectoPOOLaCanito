@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class VentanaCrearViaje extends JFrame {
 
-    private JPanel panelPrincipal; // Panel raíz asociado al archivo .form de IntelliJ GUI Designer.
+    private JPanel panelPrincipal;
 
     private final SistemaVentaPasajes sistema;
     private final ControladorEmpresas controlador;
