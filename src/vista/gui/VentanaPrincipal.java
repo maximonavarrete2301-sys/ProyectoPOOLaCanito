@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class VentanaPrincipal extends JFrame {
 
-    private JPanel panelPrincipal; // Panel raíz asociado al archivo .form de IntelliJ GUI Designer.
+    private JPanel panelPrincipal;
 
     private SistemaVentaPasajes sistema;
     private ControladorEmpresas controladorEmpresas;
